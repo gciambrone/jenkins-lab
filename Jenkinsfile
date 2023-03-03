@@ -6,14 +6,15 @@ pipeline {
         sh 'echo ciao'
       }
     }
-    stage('run'){
+    stage('build'){
       steps {
-        sh '/bin/bash script.sh'
+        sh 'docker build -t image-github .'
+        sh 'docker images'
       }
     }
-    stage('result'){
+    stage('run'){
       steps{
-        sh 'ls -l'
+        sh 'docker run -d --name cont-prova image-github'
       }
     }
   }
